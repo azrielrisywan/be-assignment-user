@@ -24,6 +24,9 @@ func SetupRouter() *gin.Engine {
 	// Account routes
 	router.POST("/getAccountsByUser", controller.GetAccountsByUser)
 
+	// Payment routes
+	router.POST("/getPaymentsListByUser", controller.GetPaymentsListByUser)
+
 
     return router
 }
