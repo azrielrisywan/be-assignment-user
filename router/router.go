@@ -3,13 +3,26 @@
 package router
 
 import (
-    "github.com/gin-gonic/gin"
-    "azrielrisywan/be-assignment-user/controller"
+	"azrielrisywan/be-assignment-user/controller"
+	"azrielrisywan/be-assignment-user/middleware"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
 )
 
 // SetupRouter sets up the routes for the application
 func SetupRouter() *gin.Engine {
+	var hmacSecret = "pDnYuxHNGugqD6u/q20ShEFX32uIDNFTPH3CjLZjPSES/N7QvZr+v+eDOCi31F7FbQFrzCgLqngGUolnvUXzqw=="
+	
+	// Enable CORS for all origins. This is not recommended for production usage.
+    // Use a whitelist of allowed origins instead.
+    corsConfig := cors.Config{
+        AllowOrigins: []string{"*"},
+        AllowHeaders: []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+    }
+
     router := gin.Default()
+	router.Use(cors.New(corsConfig))
 
     // Testing routes
     router.GET("/test", controller.Test)
@@ -22,10 +35,10 @@ func SetupRouter() *gin.Engine {
 	router.POST("/signin", controller.SignIn)
 
 	// Account routes
-	router.POST("/getAccountsByUser", controller.GetAccountsByUser)
+	router.POST("/getAccountsByUser", middleware.AuthMiddleware(hmacSecret), controller.GetAccountsByUser)
 
 	// Payment routes
-	router.POST("/getPaymentsListByUser", controller.GetPaymentsListByUser)
+	router.POST("/getPaymentsListByUser", middleware.AuthMiddleware(hmacSecret), controller.GetPaymentsListByUser)
 
 
     return router
