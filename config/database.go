@@ -7,7 +7,7 @@ import (
 )
 
 func SetupDatabase() *sqlx.DB {
-	db, err := sqlx.Connect("postgres", "user=postgres password=Tasik123 dbname=postgres sslmode=disable")
+	db, err := sqlx.Connect("postgres", "user=azriel password=Tasik123 dbname=azriel_be_assignment host=postgresql-azriel.alwaysdata.net sslmode=disable")
 	if err != nil {
 		log.Fatal(err)
 	}
