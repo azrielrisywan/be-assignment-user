@@ -1,57 +1,92 @@
-# Take home assignment
+# BE-ASSIGNMENT
 
+I've built this app using two GoLang services, containerized with Docker. PostgreSQL is utilized for data storage, hosted externally. Authentication is managed through Supabase, and Swagger is employed for API documentation.
 
-## Description:
-Build 2 Backend services which manages user’s accounts and transactions (send/withdraw). 
+This is a brief guide on how to install and use the app. You can see the link to API Documentation at the bottom of this readme.
 
-In Account Manager service, we have:
-- User: Login with Id/Password
-- Payment Account: One user can have multiple accounts like credit, debit, loan...
-- Payment History: Records of transactions
+## Installation
 
-In Payment Manager service, we have:
-- Transaction: Include basic information like amount, timestamp, toAddress, status...
-- We have a core transaction process function, that will be executed by `/send` or `/withdraw` API:
+Before Installation, make sure you have Docker installed on your server/PC.
 
-```js
-function processTransaction(transaction) {
-    return new Promise((resolve, reject) => {
-        console.log('Transaction processing started for:', transaction);
+To install this BE-ASSIGNMENT, follow these steps:
 
-        // Simulate long running process
-        setTimeout(() => {
-            // After 30 seconds, we assume the transaction is processed successfully
-            console.log('transaction processed for:', transaction);
-            resolve(transaction);
-        }, 30000); // 30 seconds
-    });
-}
+1. Clone the repository:
 
-// Example usage
-let transaction = { amount: 100, currency: 'USD' }; // Sample transaction input
-processTransaction(transaction)
-    .then((processedTransaction) => {
-        console.log('transaction processing completed for:', processedTransaction);
-    })
-    .catch((error) => {
-        console.error('transaction processing failed:', error);
-    });
-```
+    ```bash
+    git clone https://github.com/azrielrisywan/be-assignment-user.git
+    ```
 
-Features:
-- Users need to register/log in and then be able to call APIs.
-- APIs for 2 operations send/withdraw. Account statements will be updated after the transaction is successful.
-- APIs to retrieve all accounts and transactions per account of the user.
-- Write Swagger docs for implemented APIs (Optional)
+2. Navigate to the project directory:
 
-### Tech-stack:
-- Recommend using authentication 3rd party: Supertokens, Supabase...
-- `NodeJs/Golang` for API server (`Fastify/Gin` framework is the best choices)
-- `PostgreSQL/MongoDB` for Database. Recommend using `Prisma` for ORM.
-- `Docker` for containerization. Recommend using `docker-compose` for running containers.
- 
-## Target:
-- Good document/README to describe your implementation.
-- Make sure app functionality works as expected. Run and test it well.
-- Containerized and run the app using Docker.
-- Using `docker-compose` or any automation script to run the app with single command is a plus.
+    ```bash
+    cd be-assignment-user
+    ```
+
+3. Run Docker Compose:
+
+    ```bash
+    docker-compose up
+    ```
+
+## SignIn & SignUp
+
+### Sign In (localhost:8888/signin)
+
+Sign in with these accounts:
+- Email: azrielrisywan@gmail.com, Password: 123456
+- Email: risywanazriel@gmail.com, Password: 123456
+
+Example: 
+![Sign In Example](image-9.png)
+
+### Sign Up (localhost:8888/signup)
+
+Sign up with your active email. The Activation link will be sent to your email after sign up.
+
+Example:
+![Sign Up Example](image-10.png)
+
+## Main Feature
+
+Attach `access_token` to these endpoint headers, for example:
+![Access Token Example](image-4.png)
+
+### Send Payment (localhost:8989/payment/send)
+
+User can send balance to another account. In my app's database, only users with id=1 and id=3 have accounts. One user can have many account types.
+
+To send payment, hit the `/payment/send` endpoint with the following request body:
+
+![Send Payment Example](image-3.png)
+- "idUser": User ID from users
+- "idAccountFrom": Source account ID
+- "idAccountTo": Destination account ID
+- "amount": Balance amount you want to send 
+
+Pay attention to the amount of balance you want to send. If you don't have enough balance, the app throws an error.
+
+### Withdraw Payment (localhost:8989/payment/withdraw)
+
+User can withdraw balance from their account. In my app's database, only users with id=1 and id=3 have accounts. One user can have many account types.
+
+To withdraw, hit the `/payment/withdraw` endpoint with the following request body: 
+
+![Withdraw Payment Example](image-5.png)
+
+### Get Accounts By User (localhost:8888/getAccountsByUser)
+
+Endpoint to get a list of accounts that a certain user has. This is an example of the request body:
+
+![Get Accounts Example](image-6.png)
+
+### Get Payments List By User (localhost:8888/getPaymentsListByUser)
+
+Endpoint to get a list of payment history that a user has. This is an example of the request body:
+
+![Get Payments List Example](image-7.png)
+
+## API Documentation
+
+See the API documentation (run the app first):
+1. BE-USER : [http://localhost:8888/swagger/index.html](http://localhost:8888/swagger/index.html)
+2. BE-PAYMENT : [http://localhost:8989/swagger/index.html](http://localhost:8989/swagger/index.html)
