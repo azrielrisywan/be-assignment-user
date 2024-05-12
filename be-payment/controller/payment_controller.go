@@ -14,6 +14,20 @@ type PaymentRequest struct {
 	Amount int `json:"amount"`
 }
 
+
+// Send Payment godoc
+// @Summary Send Payment Endpoint
+// @Schemes
+// @Description Send Payment, with body request idUser Integer, idAccountFrom Integer, idAccountTo Integer, amount Integer
+// @Tags BE-PAYMENT
+// @Accept json
+// @Produce json
+// @Param idUser body int true "idUser"
+// @Param idAccountFrom body int true "idAccountFrom"
+// @Param idAccountTo body int true "idAccountTo"
+// @Param amount body int true "amount"
+// @Success 200 {string} Success 
+// @Router /payment/send [post]
 func SendPayment(ctx *gin.Context) {
 	var req PaymentRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -78,6 +92,19 @@ func SendPayment(ctx *gin.Context) {
 
 var emailCtxKey = "email"
 
+
+// Withdraw Payment godoc
+// @Summary Withdraw Payment Endpoint
+// @Schemes
+// @Description Withdraw Payment, with body request idUser Integer, idAccountFrom Integer, amount Integer
+// @Tags BE-PAYMENT
+// @Accept json
+// @Produce json
+// @Param idUser body int true "idUser"
+// @Param idAccountFrom body int true "idAccountFrom"
+// @Param amount body int true "amount"
+// @Success 200 {string} Success 
+// @Router /payment/withdraw [post]
 func WithdrawPayment(ctx *gin.Context) {
 	var req PaymentRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {

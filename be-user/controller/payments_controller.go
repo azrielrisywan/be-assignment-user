@@ -19,6 +19,16 @@ type Payment struct {
 	PaymentType string `json:"paymentType"`
 }
 
+// Get Payments List By User godoc
+// @Summary Get Payments List By User
+// @Schemes
+// @Description Get Payments History By User, with body request idUser Integer
+// @Tags BE-USER
+// @Accept json
+// @Produce json
+// @Param idUser body int true "idUser"
+// @Success 200 {string} Success 
+// @Router /getPaymentsListByUser [post]
 func GetPaymentsListByUser(ctx *gin.Context) {
 	var req getPaymentsListByUserRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {

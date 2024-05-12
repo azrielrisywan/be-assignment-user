@@ -5,6 +5,11 @@ package router
 import (
 	"azrielrisywan/be-assignment-payment/controller"
 	"github.com/gin-gonic/gin"
+	"azrielrisywan/be-assignment-payment/docs"
+
+	swaggerfiles "github.com/swaggo/files"
+    ginSwagger "github.com/swaggo/gin-swagger"
+
 	"github.com/gin-contrib/cors"
 	"azrielrisywan/be-assignment-payment/middleware"
 )
@@ -21,6 +26,7 @@ func SetupRouter() *gin.Engine {
     }
 
 	router := gin.Default()
+	docs.SwaggerInfo.BasePath = ""
 	router.Use(cors.New(corsConfig))
 
 	// Testing routes
@@ -35,6 +41,8 @@ func SetupRouter() *gin.Engine {
 
 	// Transaction routes
 	router.POST("/transaction/list-by-user", middleware.AuthMiddleware(hmacSecret), controller.TransactionListByUser)
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	return router
 }

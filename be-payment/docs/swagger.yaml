@@ -1,0 +1,80 @@
+info:
+  contact: {}
+paths:
+  /payment/send:
+    post:
+      consumes:
+      - application/json
+      description: Send Payment, with body request idUser Integer, idAccountFrom Integer,
+        idAccountTo Integer, amount Integer
+      parameters:
+      - description: idUser
+        in: body
+        name: idUser
+        required: true
+        schema:
+          type: integer
+      - description: idAccountFrom
+        in: body
+        name: idAccountFrom
+        required: true
+        schema:
+          type: integer
+      - description: idAccountTo
+        in: body
+        name: idAccountTo
+        required: true
+        schema:
+          type: integer
+      - description: amount
+        in: body
+        name: amount
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Send Payment Endpoint
+      tags:
+      - BE-PAYMENT
+  /payment/withdraw:
+    post:
+      consumes:
+      - application/json
+      description: Withdraw Payment, with body request idUser Integer, idAccountFrom
+        Integer, amount Integer
+      parameters:
+      - description: idUser
+        in: body
+        name: idUser
+        required: true
+        schema:
+          type: integer
+      - description: idAccountFrom
+        in: body
+        name: idAccountFrom
+        required: true
+        schema:
+          type: integer
+      - description: amount
+        in: body
+        name: amount
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Withdraw Payment Endpoint
+      tags:
+      - BE-PAYMENT
+swagger: "2.0"

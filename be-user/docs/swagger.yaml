@@ -1,0 +1,106 @@
+info:
+  contact: {}
+paths:
+  /getAccountsByUser:
+    post:
+      consumes:
+      - application/json
+      description: Get Accounts By User, with body request idUser Integer
+      parameters:
+      - description: idUser
+        in: body
+        name: idUser
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get Accounts By User
+      tags:
+      - BE-USER
+  /getPaymentsListByUser:
+    post:
+      consumes:
+      - application/json
+      description: Get Payments History By User, with body request idUser Integer
+      parameters:
+      - description: idUser
+        in: body
+        name: idUser
+        required: true
+        schema:
+          type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Get Payments List By User
+      tags:
+      - BE-USER
+  /signin:
+    post:
+      consumes:
+      - application/json
+      description: Sign In using email and password if you have signed up before
+      parameters:
+      - description: Email
+        format: email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Sign In
+      tags:
+      - BE-USER
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Sign Up using active email, and password (min. 6 characters)
+      parameters:
+      - description: Email
+        format: email
+        in: body
+        name: email
+        required: true
+        schema:
+          type: string
+      - description: Password
+        in: body
+        name: password
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Sign Up
+      tags:
+      - BE-USER
+swagger: "2.0"

@@ -17,6 +17,16 @@ type Account struct {
 	Balance     int    `json:"balance"`
 }
 
+// Get Accounts By User godoc
+// @Summary Get Accounts By User
+// @Schemes
+// @Description Get Accounts By User, with body request idUser Integer
+// @Tags BE-USER
+// @Accept json
+// @Produce json
+// @Param idUser body int true "idUser"
+// @Success 200 {string} Success 
+// @Router /getAccountsByUser [post]
 func GetAccountsByUser(ctx *gin.Context) {
 	var req getAccountsByUserRequest
     if err := ctx.ShouldBindJSON(&req); err != nil {

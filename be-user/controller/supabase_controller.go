@@ -13,6 +13,18 @@ type SignUpRequest struct {
 	Password string `json:"password"`
 }
 
+
+// Sign Up godoc
+// @Summary Sign Up
+// @Schemes
+// @Description Sign Up using active email, and password (min. 6 characters)
+// @Tags BE-USER
+// @Accept json
+// @Produce json
+// @Param email body string true "Email" Format(email)
+// @Param password body string true "Password"
+// @Success 200 {string} AccessToken 
+// @Router /signup [post]
 func SignUp(ctx *gin.Context) {
 	var requestBody SignUpRequest
 	if err := ctx.ShouldBindJSON(&requestBody); err != nil {
@@ -45,7 +57,17 @@ func SignUp(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, gin.H{"user": user})
 }
-
+// Sign In godoc
+// @Summary Sign In
+// @Schemes
+// @Description Sign In using email and password if you have signed up before
+// @Tags BE-USER
+// @Accept json
+// @Produce json
+// @Param email body string true "Email" Format(email)
+// @Param password body string true "Password"
+// @Success 200 {string} AccessToken  
+// @Router /signin [post]
 func SignIn(ctx *gin.Context) {
 	var requestBody SignUpRequest
 	if err := ctx.ShouldBindJSON(&requestBody); err != nil {
