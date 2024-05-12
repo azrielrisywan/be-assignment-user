@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+  be-payment:
+    build: ./be-payment
+    ports: 
+      - "8989:8989"
+  be-user:
+    build: ./be-user
+    ports: 
+      - "8888:8888"
